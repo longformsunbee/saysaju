@@ -1,0 +1,29 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 갓 (전통 모자) -->
+  <ellipse cx="24" cy="16" rx="14" ry="3" fill="#2a2a3e" stroke="#d4af37" stroke-width="1.5"/>
+  <rect x="18" y="8" width="12" height="8" rx="1" fill="#1a1a2e" stroke="#d4af37" stroke-width="1.5"/>
+  <ellipse cx="24" cy="8" rx="6" ry="2" fill="#2a2a3e" stroke="#d4af37" stroke-width="1"/>
+  
+  <!-- 얼굴 -->
+  <circle cx="24" cy="28" r="8" fill="#f5deb3" stroke="#d4af37" stroke-width="1"/>
+  
+  <!-- 눈 -->
+  <circle cx="21" cy="27" r="1.5" fill="#1a1a2e"/>
+  <circle cx="27" cy="27" r="1.5" fill="#1a1a2e"/>
+  
+  <!-- 미소 -->
+  <path d="M 20 30 Q 24 32 28 30" stroke="#1a1a2e" stroke-width="1" fill="none" stroke-linecap="round"/>
+  
+  <!-- 수염 -->
+  <path d="M 24 32 L 24 34" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 22 33 L 21 35" stroke="#1a1a2e" stroke-width="1" stroke-linecap="round"/>
+  <path d="M 26 33 L 27 35" stroke="#1a1a2e" stroke-width="1" stroke-linecap="round"/>
+  
+  <!-- 한복 -->
+  <path d="M 24 36 L 24 46 M 18 38 L 24 36 L 30 38" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- 도포 깃 -->
+  <path d="M 22 36 L 18 40" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 26 36 L 30 40" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+

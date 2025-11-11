@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김선비의 사주궁합 - 토정비결·사주풀이·궁합 전문</title>
+    <meta name="description" content="전통 토정비결과 사주풀이, 궁합을 현대적으로 재해석한 운세 서비스입니다.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-primary text-white font-serif">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-primary/80 border-b border-accent/20">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="seonbi-logo.svg" alt="선비 로고" class="w-10 h-10 logo-seonbi">
+                    <span class="text-xl md:text-2xl font-bold text-gradient text-shadow">김선비의 사주궁합</span>
+                </a>
+
+                <!-- Navigation Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#daily" class="flex items-center gap-2 text-white/80 hover:text-accent transition-colors">
+                        <i data-lucide="sun" class="w-4 h-4"></i>
+                        <span>오늘의 운세</span>
+                    </a>
+                    <a href="#tojeong" class="flex items-center gap-2 text-white/80 hover:text-accent transition-colors">
+                        <i data-lucide="moon" class="w-4 h-4"></i>
+                        <span>토정비결</span>
+                    </a>
+                    <a href="#saju" class="flex items-center gap-2 text-white/80 hover:text-accent transition-colors">
+                        <i data-lucide="star" class="w-4 h-4"></i>
+                        <span>사주풀이</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-accent" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative py-20 overflow-hidden stars-bg">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 fade-in">
+                    <img src="seonbi-logo.svg" alt="선비" class="w-24 h-24 mx-auto mb-6 logo-seonbi-large">
+                    
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        <span class="text-gradient text-shadow">김선비의 사주궁합</span>
+                    </h1>
+
+                    <p class="text-xl md:text-2xl text-white/80 mb-4 font-serif">
+                        전통과 현대가 만나는 운세 이야기
+                    </p>
+
+                    <p class="text-white/60 max-w-2xl mx-auto leading-relaxed">
+                        토정비결과 사주풀이로 당신의 운명을 들여다보세요.
+                        <br>
+                        오늘의 운세부터 한 해의 흐름, 타고난 성향까지 모두 확인할 수 있습니다.
+                    </p>
+
+                    <!-- Decorative Icons -->
+                    <div class="flex items-center justify-center gap-8 mt-8">
+                        <i data-lucide="sun" class="w-8 h-8 text-accent/60 float-icon"></i>
+                        <i data-lucide="moon" class="w-8 h-8 text-accent/60 float-icon" style="animation-delay: 0.3s"></i>
+                        <i data-lucide="star" class="w-8 h-8 text-accent/60 float-icon" style="animation-delay: 0.6s"></i>
+                        <i data-lucide="heart" class="w-8 h-8 text-accent/60 float-icon" style="animation-delay: 0.9s"></i>
+                    </div>
+                </div>
+
+                <!-- Tab Selection -->
+                <div class="flex justify-center gap-4 mb-8">
+                    <button id="fortuneTab" onclick="switchTab('fortune')" class="tab-btn active">
+                        <i data-lucide="sparkles" class="w-5 h-5 inline-block mr-2"></i>
+                        운세 보기
+                    </button>
+                    <button id="compatibilityTab" onclick="switchTab('compatibility')" class="tab-btn">
+                        <i data-lucide="hearts" class="w-5 h-5 inline-block mr-2"></i>
+                        궁합 보기
+                    </button>
+                </div>
+
+                <!-- Form Section - 운세보기 -->
+                <div id="fortuneSection" class="w-full max-w-2xl mx-auto slide-up">
+                    <form id="horoscopeForm" class="card glow-effect">
+                        <div class="text-center mb-8">
+                            <i data-lucide="sparkles" class="w-12 h-12 text-accent mx-auto mb-4 pulse-icon"></i>
+                            <h2 class="text-3xl font-bold text-gradient mb-2">운세 보기</h2>
+                            <p class="text-white/60">생년월일을 입력하시면 운세를 확인하실 수 있습니다</p>
+                        </div>
+
+                        <!-- Error Messages -->
+                        <div id="errorMessages" class="hidden mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+                            <ul id="errorList" class="space-y-1 text-red-400 text-sm"></ul>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Name -->
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-medium mb-2 text-accent">
+                                    <i data-lucide="user" class="w-4 h-4"></i>
+                                    이름
+                                </label>
+                                <input type="text" id="name" placeholder="이름을 입력하세요" class="input-field" required>
+                            </div>
+
+                            <!-- Calendar Type -->
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-medium mb-2 text-accent">
+                                    <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                                    생년월일 구분
+                                </label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button type="button" class="calendar-btn active" data-calendar="solar">
+                                        <i data-lucide="sun" class="w-4 h-4 inline-block mr-1"></i>
+                                        양력
+                                    </button>
+                                    <button type="button" class="calendar-btn" data-calendar="lunar">
+                                        <i data-lucide="moon" class="w-4 h-4 inline-block mr-1"></i>
+                                        음력
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-medium mb-2 text-accent">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    생년월일 <span id="calendarTypeLabel" class="text-xs text-accent/70">(양력)</span>
+                                </label>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <select id="year" class="input-field" required>
+                                        <option value="">년도</option>
+                                    </select>
+                                    <select id="month" class="input-field" required>
+                                        <option value="">월</option>
+                                    </select>
+                                    <select id="day" class="input-field" required>
+                                        <option value="">일</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Birth Time (Optional) -->
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-medium mb-2 text-accent">
+                                    <i data-lucide="clock" class="w-4 h-4"></i>
+                                    태어난 시간 <span class="text-xs text-white/40">(선택사항)</span>
+                                </label>
+                                <select id="hour" class="input-field">
+                                    <option value="">시간을 선택하세요</option>
+                                </select>
+                            </div>
+
+                            <!-- Gender -->
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-medium mb-2 text-accent">
+                                    성별
+                                </label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button type="button" class="gender-btn" data-gender="male">남성</button>
+                                    <button type="button" class="gender-btn" data-gender="female">여성</button>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn-primary w-full">
+                                <span class="flex items-center justify-center gap-2">
+                                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                    운세 보기
+                                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- Privacy Notice -->
+                        <p class="text-xs text-center text-white/40 mt-6">
+                            입력하신 정보는 운세 분석에만 사용되며 저장되지 않습니다.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Form Section - 궁합보기 -->
+                <div id="compatibilitySection" class="hidden w-full max-w-4xl mx-auto slide-up">
+                    <form id="compatibilityFormMain" class="card glow-effect">
+                        <div class="text-center mb-8">
+                            <i data-lucide="hearts" class="w-12 h-12 text-accent mx-auto mb-4 pulse-icon"></i>
+                            <h2 class="text-3xl font-bold text-gradient mb-2">궁합 보기</h2>
+                            <p class="text-white/60">두 분의 정보를 입력하시면 궁합을 확인하실 수 있습니다</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- 나의 정보 -->
+                            <div class="p-6 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                                <h3 class="text-xl font-bold text-blue-400 mb-4 flex items-center gap-2">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
+                                    나의 정보
+                                </h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">이름</label>
+                                        <input type="text" id="myName" placeholder="이름 입력" class="input-field" required>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">생년월일 구분</label>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <button type="button" class="my-calendar-btn active" data-calendar="solar">
+                                                <i data-lucide="sun" class="w-4 h-4 inline-block mr-1"></i>양력
+                                            </button>
+                                            <button type="button" class="my-calendar-btn" data-calendar="lunar">
+                                                <i data-lucide="moon" class="w-4 h-4 inline-block mr-1"></i>음력
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">생년월일</label>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <select id="myYear" class="input-field" required><option value="">년도</option></select>
+                                            <select id="myMonth" class="input-field" required><option value="">월</option></select>
+                                            <select id="myDay" class="input-field" required><option value="">일</option></select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">시간 (선택)</label>
+                                        <select id="myHour" class="input-field"><option value="">선택</option></select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">성별</label>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <button type="button" class="my-gender-btn" data-gender="male">남성</button>
+                                            <button type="button" class="my-gender-btn" data-gender="female">여성</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 상대방 정보 -->
+                            <div class="p-6 bg-pink-500/10 border border-pink-500/30 rounded-lg">
+                                <h3 class="text-xl font-bold text-pink-400 mb-4 flex items-center gap-2">
+                                    <i data-lucide="heart" class="w-5 h-5"></i>
+                                    상대방 정보
+                                </h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">이름</label>
+                                        <input type="text" id="partnerNameMain" placeholder="이름 입력" class="input-field" required>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">생년월일 구분</label>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <button type="button" class="partner-calendar-btn-main active" data-calendar="solar">
+                                                <i data-lucide="sun" class="w-4 h-4 inline-block mr-1"></i>양력
+                                            </button>
+                                            <button type="button" class="partner-calendar-btn-main" data-calendar="lunar">
+                                                <i data-lucide="moon" class="w-4 h-4 inline-block mr-1"></i>음력
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">생년월일</label>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <select id="partnerYearMain" class="input-field" required><option value="">년도</option></select>
+                                            <select id="partnerMonthMain" class="input-field" required><option value="">월</option></select>
+                                            <select id="partnerDayMain" class="input-field" required><option value="">일</option></select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">시간 (선택)</label>
+                                        <select id="partnerHourMain" class="input-field"><option value="">선택</option></select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="text-sm text-accent mb-2 block">성별</label>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <button type="button" class="partner-gender-btn-main" data-gender="male">남성</button>
+                                            <button type="button" class="partner-gender-btn-main" data-gender="female">여성</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-primary w-full mt-6">
+                            <span class="flex items-center justify-center gap-2">
+                                <i data-lucide="hearts" class="w-5 h-5"></i>
+                                궁합 확인하기
+                                <i data-lucide="hearts" class="w-5 h-5"></i>
+                            </span>
+                        </button>
+
+                        <!-- Privacy Notice -->
+                        <p class="text-xs text-center text-white/40 mt-6">
+                            입력하신 정보는 궁합 분석에만 사용되며 저장되지 않습니다.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Loading Animation -->
+                <div id="loadingSection" class="hidden mt-12 text-center">
+                    <div class="inline-flex flex-col items-center gap-4">
+                        <i data-lucide="sparkles" class="w-12 h-12 text-accent spinner"></i>
+                        <p class="text-accent font-medium" id="loadingText">운세를 분석하고 있습니다...</p>
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 bg-accent rounded-full loading-dot"></div>
+                            <div class="w-3 h-3 bg-accent rounded-full loading-dot" style="animation-delay: 0.2s"></div>
+                            <div class="w-3 h-3 bg-accent rounded-full loading-dot" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Stars -->
+            <div class="floating-stars" id="floatingStars"></div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="hidden py-16 bg-primary/30">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="text-4xl font-bold text-gradient mb-4" id="resultUserName"></h2>
+                    <p class="text-white/60">정성스럽게 풀이한 운세를 확인해보세요</p>
+                </div>
+
+                <div id="resultCards" class="space-y-8"></div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="featuresSection" class="py-20 bg-primary/30">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 fade-in">
+                    <h2 class="text-4xl font-bold text-gradient mb-4">무엇을 알 수 있나요?</h2>
+                    <p class="text-white/60">사이사주에서 제공하는 다양한 운세 정보</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card gold-border slide-up hover-lift">
+                        <div class="mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 p-4 mx-auto">
+                                <i data-lucide="sun" class="w-full h-full text-white"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-accent mb-3">오늘의 운세</h3>
+                        <p class="text-white/70 leading-relaxed">
+                            애정운, 금전운, 건강운, 직장운 등 오늘 하루의 전반적인 운세를 확인하세요.
+                        </p>
+                    </div>
+
+                    <div class="card gold-border slide-up hover-lift" style="animation-delay: 0.1s">
+                        <div class="mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 p-4 mx-auto">
+                                <i data-lucide="moon" class="w-full h-full text-white"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-accent mb-3">올해의 흐름</h3>
+                        <p class="text-white/70 leading-relaxed">
+                            한 해의 흐름을 분기별로 나누어 자세히 알려드립니다. 미리 준비하세요.
+                        </p>
+                    </div>
+
+                    <div class="card gold-border slide-up hover-lift" style="animation-delay: 0.2s">
+                        <div class="mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-red-500 p-4 mx-auto">
+                                <i data-lucide="star" class="w-full h-full text-white"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-accent mb-3">사주 분석</h3>
+                        <p class="text-white/70 leading-relaxed">
+                            타고난 성격, 장단점, 행운의 색상과 숫자, 궁합까지 모두 확인할 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-accent/20 bg-primary/50 backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-accent font-bold mb-4 flex items-center gap-2">
+                        <img src="seonbi-logo.svg" alt="선비" class="w-8 h-8">
+                        김선비의 사주궁합
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed">
+                        전통 토정비결과 사주풀이를 현대적으로 재해석한 운세 서비스입니다.
+                        따뜻하고 신비로운 경험을 선사합니다.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-accent font-bold mb-4">바로가기</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#daily" class="text-white/60 hover:text-accent transition-colors">오늘의 운세</a></li>
+                        <li><a href="#tojeong" class="text-white/60 hover:text-accent transition-colors">토정비결</a></li>
+                        <li><a href="#saju" class="text-white/60 hover:text-accent transition-colors">사주풀이</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-accent font-bold mb-4">소셜 미디어</h3>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center hover:bg-accent/20 transition-colors">
+                            <span class="text-accent">📘</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center hover:bg-accent/20 transition-colors">
+                            <span class="text-accent">📷</span>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center hover:bg-accent/20 transition-colors">
+                            <span class="text-accent">💬</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent mb-8"></div>
+
+            <!-- Copyright -->
+            <div class="text-center">
+                <p class="text-white/40 text-sm mb-2">© 2025 김선비의 사주궁합. All rights reserved.</p>
+                <p class="text-accent/60 text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    운세는 참고용으로만 보세요 ✨
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // 버튼 기능 - 직접 정의
+        function goToFortune() {
+            console.log('운세 버튼 클릭됨!');
+            
+            // 결과 숨기기
+            const resultsSection = document.getElementById('resultsSection');
+            if (resultsSection) {
+                resultsSection.classList.add('hidden');
+            }
+            
+            // 폼 보이기
+            const horoscopeForm = document.getElementById('horoscopeForm');
+            if (horoscopeForm) {
+                horoscopeForm.classList.remove('hidden');
+            }
+            
+            // 운세보기 탭 활성화
+            const fortuneTab = document.getElementById('fortuneTab');
+            const compatibilityTab = document.getElementById('compatibilityTab');
+            const fortuneSection = document.getElementById('fortuneSection');
+            const compatibilitySection = document.getElementById('compatibilitySection');
+            
+            if (fortuneTab) fortuneTab.classList.add('active');
+            if (compatibilityTab) compatibilityTab.classList.remove('active');
+            if (fortuneSection) fortuneSection.classList.remove('hidden');
+            if (compatibilitySection) compatibilitySection.classList.add('hidden');
+            
+            // 스크롤
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+        }
+        
+        function goToCompatibility() {
+            console.log('궁합 버튼 클릭됨!');
+            
+            // 결과 숨기기
+            const resultsSection = document.getElementById('resultsSection');
+            if (resultsSection) {
+                resultsSection.classList.add('hidden');
+            }
+            
+            // 폼 보이기
+            const horoscopeForm = document.getElementById('horoscopeForm');
+            if (horoscopeForm) {
+                horoscopeForm.classList.remove('hidden');
+            }
+            
+            // 궁합보기 탭 활성화
+            const fortuneTab = document.getElementById('fortuneTab');
+            const compatibilityTab = document.getElementById('compatibilityTab');
+            const fortuneSection = document.getElementById('fortuneSection');
+            const compatibilitySection = document.getElementById('compatibilitySection');
+            
+            if (fortuneTab) fortuneTab.classList.remove('active');
+            if (compatibilityTab) compatibilityTab.classList.add('active');
+            if (fortuneSection) fortuneSection.classList.add('hidden');
+            if (compatibilitySection) compatibilitySection.classList.remove('hidden');
+            
+            // 스크롤
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+        }
+        
+        // 전역으로 노출
+        window.goToFortune = goToFortune;
+        window.goToCompatibility = goToCompatibility;
+    </script>
+</body>
+</html>
+

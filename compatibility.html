@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>궁합 결과 - 김선비의 사주궁합</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-primary text-white font-serif">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-primary/80 border-b border-accent/20">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="seonbi-logo.svg" alt="선비 로고" class="w-10 h-10 logo-seonbi">
+                    <span class="text-xl md:text-2xl font-bold text-gradient text-shadow">김선비의 사주궁합</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="py-16 bg-primary/30 stars-bg">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 fade-in">
+                    <div class="text-6xl mb-4">💕</div>
+                    <h2 class="text-4xl font-bold text-gradient mb-4" id="resultTitle">궁합 결과</h2>
+                    <p class="text-white/60">두 분의 인연을 자세히 풀이해드립니다</p>
+                </div>
+
+                <div id="compatibilityResultContent" class="space-y-8"></div>
+
+                <!-- 처음으로 돌아가기 버튼 -->
+                <div class="text-center mt-12">
+                    <button onclick="window.location.href='index.html'" class="btn-primary inline-flex items-center gap-2">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                        처음으로 돌아가기
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-accent/20 bg-primary/50 backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <p class="text-white/40 text-sm mb-2">© 2025 김선비의 사주궁합. All rights reserved.</p>
+                <p class="text-accent/60 text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    운세는 참고용으로만 보세요 ✨
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="compatibility-result.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
