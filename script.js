@@ -272,8 +272,8 @@ function handleFormSubmit(e) {
 
     // Hide form and features
     document.getElementById('horoscopeForm').classList.add('hidden');
-    document.getElementById('featuresSection').classList.add('hidden');
-    document.getElementById('ctaSection').classList.add('hidden');
+    const featuresSection = document.getElementById('featuresSection');
+    if (featuresSection) featuresSection.classList.add('hidden');
 
     // Simulate processing
     setTimeout(() => {
@@ -1231,11 +1231,9 @@ window.goToFortune = function() {
         // 폼 섹션들 보이기
         const horoscopeForm = document.getElementById('horoscopeForm');
         const featuresSection = document.getElementById('featuresSection');
-        const ctaSection = document.getElementById('ctaSection');
         
         if (horoscopeForm) horoscopeForm.classList.remove('hidden');
         if (featuresSection) featuresSection.classList.remove('hidden');
-        if (ctaSection) ctaSection.classList.remove('hidden');
         
         // 운세보기 탭으로 전환
         window.switchTab('fortune');
@@ -1258,11 +1256,9 @@ window.goToCompatibility = function() {
         // 폼 섹션들 보이기
         const horoscopeForm = document.getElementById('horoscopeForm');
         const featuresSection = document.getElementById('featuresSection');
-        const ctaSection = document.getElementById('ctaSection');
         
         if (horoscopeForm) horoscopeForm.classList.remove('hidden');
         if (featuresSection) featuresSection.classList.remove('hidden');
-        if (ctaSection) ctaSection.classList.remove('hidden');
         
         // 궁합보기 탭으로 전환
         window.switchTab('compatibility');
@@ -1305,8 +1301,8 @@ window.resetToHome = function() {
     
     // 폼 섹션 보이기
     document.getElementById('horoscopeForm').classList.remove('hidden');
-    document.getElementById('featuresSection').classList.remove('hidden');
-    document.getElementById('ctaSection').classList.remove('hidden');
+    const featuresSection = document.getElementById('featuresSection');
+    if (featuresSection) featuresSection.classList.remove('hidden');
     
     // 폼 초기화
     document.getElementById('horoscopeForm').reset();
